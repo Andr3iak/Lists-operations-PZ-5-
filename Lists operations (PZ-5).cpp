@@ -49,70 +49,29 @@ void adding(number* head_a, number* head_b, number* head_adding) {
 
     number* temp_a = head_a->next;
     number* temp_b = head_b->next;
+    int d = 0, pow9 = 1000000000;
 
-    int d = 0, pow9 = 10*10*10*10*10*10*10*10*10;
+    while ((temp_a != nullptr) or (temp_b != nullptr) or d != 0) {
 
-    while ((temp_a != nullptr) and (temp_b != nullptr)) {
+        int val_a = (temp_a != nullptr) ? temp_a->set : 0;
+        int val_b = (temp_b != nullptr) ? temp_b->set : 0;
+        int sum = val_a + val_b + d;
         number* temp_adding = new number;
-        temp_adding->set = temp_a->set + temp_b->set + d;
+        temp_adding->set = sum%pow9;
         temp_adding->next = head_adding->next;
         head_adding->next = temp_adding;
-        d = 0;
-        if (temp_adding->set >= pow9) {
-            d = temp_adding->set / pow9;
-            temp_adding->set %= pow9;
-        }
-        temp_a = temp_a->next;
-        temp_b = temp_b->next;
-    }
-    
-    if ((temp_a == nullptr) and (temp_b != nullptr)) {
-        while (temp_b != nullptr) {
-            number* temp_adding = new number;
-            temp_adding->set = temp_b->set + d;
-            d = 0;
-            if (temp_adding->set >= pow9) {
-                d = temp_adding->set / pow9;
-                temp_adding->set %= pow9;
-            }
-            temp_adding->next = head_adding->next;
-            head_adding->next = temp_adding;
-            temp_b = temp_b->next;
-        }
-        if (d != 0) {
-            number* temp_adding = new number;
-            temp_adding->set = d;
-            temp_adding->next = head_adding->next;
-            head_adding->next = temp_adding;
-
-        }
         
-    }
-    else if ((temp_b == nullptr) and (temp_a != nullptr)) {
-        while (temp_a != nullptr) {
-            number* temp_adding = new number;
-            temp_adding->set = temp_a->set+d;
-            d = 0;
-            if (temp_adding->set >= pow9) {
-                d = temp_adding->set / pow9;
-                temp_adding->set %= pow9;
-            }
-            temp_adding->next = head_adding->next;
-            head_adding->next = temp_adding;
-            temp_a = temp_a->next;
-        }
-        if (d != 0) {
-            number* temp_adding = new number;
-            temp_adding->set = d;
-            temp_adding->next = head_adding->next;
-            head_adding->next = temp_adding;
-        }
+
+        d = sum / pow9;
+
+        if (temp_a != nullptr) { temp_a = temp_a->next; };
+        if (temp_b != nullptr) { temp_b = temp_b->next; };
     }
     number* temp = head_adding->next;
     cout << "Result number: ";
     while (temp != nullptr) {
-        cout << temp->set;
-        temp = temp->next;
+    cout << temp->set;
+    temp = temp->next;
     }
     cout << endl;
 }
@@ -120,8 +79,8 @@ void adding(number* head_a, number* head_b, number* head_adding) {
 int main()
 {
 
-    string a = "1";
-    string b = "9999999";
+    string a = "4651565434565411";
+    string b = "995123412512512521431245214123215399999";
 
     cout << "Numbers: a: " << a << "\tb: " << b << "\n\n";
 
